@@ -2,11 +2,12 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.database import engine, Base
-from app.models import user, link, influencer, brand, campaign
+from app.models import user, link, influencer, brand, campaign, portfolio
 from app.routers.auth import router as auth_router
 from app.routers.links import router as links_router, redirect_router
 from app.routers.influencer import router as influencer_router
 from app.routers.brand import router as brand_router
+from app.routers.portfolio import router as portfolio_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -31,6 +32,7 @@ app.include_router(auth_router,       prefix="/api/v1")
 app.include_router(links_router,      prefix="/api/v1")
 app.include_router(influencer_router, prefix="/api/v1")
 app.include_router(brand_router,      prefix="/api/v1")
+app.include_router(portfolio_router,  prefix="/api/v1")
 
 @app.get("/health")
 async def health():
